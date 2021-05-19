@@ -1,12 +1,21 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-Description: An AWS Serverless Specification template describing your function.
+Description: Playground of functions
 Resources:
   acgRandomUsers:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: acgRandomUsers/index.handler
       Runtime: nodejs14.x
-      Description: ''
+      Description: 'ACG Function to read S3 objects and manipulate the data'
       MemorySize: 128
       Timeout: 15
+      Environment:
+        Variables:
+          Bucket: acg-logicalenigma-2021
+      Events:
+        ApiEvent:
+          Type: HttpApi
+          Properties:
+            Method: get
+            Path: /api/random-users
