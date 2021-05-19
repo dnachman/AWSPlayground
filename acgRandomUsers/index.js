@@ -5,11 +5,14 @@ exports.handler = async (event) => {
 
 	const client = new AWS.S3({region: 'us-east-1'});
 	
-	const data = await client.listObjectsV2({Bucket: 'acg-logicalenigma-2021'}).promise();
+	const data = await client.listObjectsV2({
+		Bucket: 'acg-logicalenigma-2021',
+		Prefix: 'lambda-example/random-users-data/users'
+	}).promise();
+	
+	console.log('DATA: ' + JSON.stringify(data));
 	
 	var output = data.Contents;
-	
-	console.log(JSON.stringify(data));
 	
 	const response = {
 			statusCode: 200,
